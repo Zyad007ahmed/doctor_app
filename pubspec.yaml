@@ -18,7 +18,7 @@ dependencies:
   # Dependency injection
   get_it: ^9.1.0
   # Automatically generate code for converting to and from JSON by annotating Dart classes.
-  json_serializable: ^6.11.3
+  json_serializable: ^6.11.2
   json_annotation: ^4.9.0
   # Networking
   dio: ^5.9.0
@@ -30,9 +30,13 @@ dependencies:
   easy_localization: ^3.0.8
   # splash screen
   flutter_native_splash: ^2.4.7
+  # SVG support
+  flutter_svg: ^2.2.3
+  # for adaptive screen and font size
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
 
@@ -40,6 +44,6 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets: 
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets: 
+   - assets/images/
+   - assets/svgs/
