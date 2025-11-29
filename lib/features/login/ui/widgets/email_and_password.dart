@@ -69,7 +69,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
               }
             },
           ),
-          verticalSpacing(18),
+          verticalSpace(18),
           AppTextFormField(
             hintText: 'Password',
             controller: passwordController,
@@ -90,7 +90,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
               }
             },
           ),
-          verticalSpacing(24),
+          verticalSpace(24),
           PasswordValidations(
             hasLowerCase: hasLowerCase,
             hasUpperCase: hasUpperCase,
