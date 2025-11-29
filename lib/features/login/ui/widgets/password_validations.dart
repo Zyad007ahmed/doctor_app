@@ -24,18 +24,18 @@ class PasswordValidations extends StatelessWidget {
     return Column(
       children: [
         buildValidationRow('At least 1 lowercase letter', hasLowerCase),
-        verticalSpacing(2),
+        verticalSpace(2),
         buildValidationRow('At least 1 uppercase letter', hasUpperCase),
-        verticalSpacing(2),
+        verticalSpace(2),
         buildValidationRow(
           'At least 1 special character',
           hasSpecialCharacters,
         ),
-        verticalSpacing(2),
+        verticalSpace(2),
         buildValidationRow('At least 1 number', hasNumber),
-        verticalSpacing(2),
+        verticalSpace(2),
         buildValidationRow('At least 8 characters long', hasMinLength),
-        verticalSpacing(2),
+        verticalSpace(2),
       ],
     );
   }
@@ -44,7 +44,7 @@ class PasswordValidations extends StatelessWidget {
     return Row(
       children: [
         const CircleAvatar(radius: 2.5, backgroundColor: ColorsManager.gray),
-        horizontalSpacing(6),
+        horizontalSpace(6),
         Text(
           text,
           style: TextStyles.font13DarkBlueRegular.copyWith(
