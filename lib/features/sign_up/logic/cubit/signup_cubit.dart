@@ -1,4 +1,7 @@
+import 'package:doctor_app/core/helpers/constants.dart';
+import 'package:doctor_app/core/helpers/shared_pref_helper.dart';
 import 'package:doctor_app/core/networking/api_result.dart';
+import 'package:doctor_app/core/networking/dio_factory.dart';
 import 'package:doctor_app/features/sign_up/data/models/signup_request_body.dart';
 import 'package:doctor_app/features/sign_up/data/repos/signup_repo.dart';
 import 'package:flutter/widgets.dart';
@@ -34,12 +37,18 @@ class SignupCubit extends Cubit<SignupState> {
     );
 
     response.when(
-      success: (signupResponse) {
+      success: (signupResponse) async {
+        await saveUserToken(signupResponse.userData?.token ?? '');
         emit(SignupState.signupSuccess(signupResponse));
       },
       failure: (error) {
         emit(SignupState.signupError(error: error.apiErrorModel.message ?? ''));
       },
     );
+  }
+
+  Future<void> saveUserToken(String token) async {
+    await SharedPrefHelper.setSecuredString(SharePrefKeys.userToken, token);
+    await DioFactory.setTokenIntoHeaderAfterLogin(token);
   }
 }
