@@ -39,6 +39,10 @@ dependencies:
   firebase_core: ^4.2.1
   # cached_network_image: ^3.4.1
   cached_network_image: ^3.4.1
+  # reading and writing simple key-value pairs
+  shared_preferences: ^2.5.4
+  # provides API to store data in secure storage
+  flutter_secure_storage: ^9.2.4
 
 dev_dependencies:
   flutter_lints: ^6.0.0
