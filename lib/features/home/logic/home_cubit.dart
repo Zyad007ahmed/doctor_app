@@ -1,4 +1,6 @@
+import 'package:doctor_app/core/helpers/extensions.dart';
 import 'package:doctor_app/core/networking/api_result.dart';
+import 'package:doctor_app/features/home/data/models/specializations_response_model.dart';
 import 'package:doctor_app/features/home/data/repos/home_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,6 +11,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   final HomeRepo _homeRepo;
 
+  List<SpecializationData?>? specializationsList = [];
+
   void getSpecializations() async {
     emit(const HomeState.specializationsLoading());
 
@@ -16,7 +20,16 @@ class HomeCubit extends Cubit<HomeState> {
 
     response.when(
       success: (specializationsResponseModel) {
-        emit(HomeState.specializationsSuccess(specializationsResponseModel));
+        specializationsList =
+            specializationsResponseModel.specializationsDataList ?? [];
+
+        getDoctorsList(specializationId: specializationsList?.first?.id);
+
+        emit(
+          HomeState.specializationsSuccess(
+            specializationsResponseModel.specializationsDataList,
+          ),
+        );
       },
       failure: (errorHandler) {
         emit(
@@ -24,5 +37,23 @@ class HomeCubit extends Cubit<HomeState> {
         );
       },
     );
+  }
+
+  void getDoctorsList({required int? specializationId}) {
+    List<Doctor?>? doctorsList = getDoctorsListBySpecializationId(
+      specializationId,
+    );
+
+    if (!doctorsList.isNullOrEmpty()) {
+      emit(HomeState.doctorsSuccess(doctorsList));
+    } else {
+      emit(HomeState.doctorsError('No doctors found'));
+    }
+  }
+
+  List<Doctor?>? getDoctorsListBySpecializationId(int? specializationId) {
+    return specializationsList
+        ?.firstWhere((specialization) => specialization?.id == specializationId)
+        ?.doctorsList;
   }
 }
