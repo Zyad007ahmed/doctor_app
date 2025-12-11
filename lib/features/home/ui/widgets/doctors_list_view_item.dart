@@ -18,34 +18,7 @@ class DoctorsListViewItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 16.h),
       child: Row(
         children: [
-          CachedNetworkImage(
-            imageUrl:
-                "https://static.wikia.nocookie.net/five-world-war/images/6/64/Hisoka.jpg/revision/latest?cb=20190313114050",
-            progressIndicatorBuilder: (context, url, downloadProgress) {
-              return Shimmer.fromColors(
-                baseColor: ColorsManager.lightGray,
-                highlightColor: Colors.white,
-                child: Container(
-                  width: 110.w,
-                  height: 120.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.white,
-                  ),
-                ),
-              );
-            },
-            imageBuilder: (context, imageProvider) => Container(
-              width: 110.w,
-              height: 120.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(12.0),
-                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-              ),
-            ),
-          ),
+          buildImage(),
           horizontalSpace(16),
           Expanded(
             child: Column(
@@ -70,6 +43,37 @@ class DoctorsListViewItem extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  CachedNetworkImage buildImage() {
+    return CachedNetworkImage(
+      imageUrl:
+          "https://static.wikia.nocookie.net/five-world-war/images/6/64/Hisoka.jpg/revision/latest?cb=20190313114050",
+      progressIndicatorBuilder: (context, url, downloadProgress) {
+        return Shimmer.fromColors(
+          baseColor: ColorsManager.lightGray,
+          highlightColor: Colors.white,
+          child: Container(
+            width: 110.w,
+            height: 120.h,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(12.0),
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
+      imageBuilder: (context, imageProvider) => Container(
+        width: 110.w,
+        height: 120.h,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(12.0),
+          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+        ),
       ),
     );
   }
