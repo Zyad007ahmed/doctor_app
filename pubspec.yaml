@@ -43,6 +43,8 @@ dependencies:
   shared_preferences: ^2.5.4
   # provides API to store data in secure storage
   flutter_secure_storage: ^9.2.4
+  # an easy way to add shimmer effect
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_lints: ^6.0.0
