@@ -1,4 +1,5 @@
 import 'package:doctor_app/core/helpers/extensions.dart';
+import 'package:doctor_app/core/networking/api_error_model.dart';
 import 'package:doctor_app/core/routing/routes.dart';
 import 'package:doctor_app/core/theming/colors.dart';
 import 'package:doctor_app/core/theming/styles.dart';
@@ -14,10 +15,12 @@ class LoginBlocListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listenWhen: (previous, current) =>
-          current is Loading || current is Success || current is Error,
+          current is LoginLoading ||
+          current is LoginSuccess ||
+          current is LoginError,
       listener: (context, state) {
         state.whenOrNull(
-          loading: () {
+          loginLoading: () {
             return showDialog(
               context: context,
               builder: (context) => const Center(
@@ -25,11 +28,11 @@ class LoginBlocListener extends StatelessWidget {
               ),
             );
           },
-          success: (loginResponse) {
+          loginSuccess: (loginResponse) {
             context.pop();
             context.pushNamed(Routes.homeScreen, arguments: loginResponse);
           },
-          error: (error) {
+          loginError: (error) {
             setUpErrorState(context, error);
           },
         );
@@ -38,13 +41,16 @@ class LoginBlocListener extends StatelessWidget {
     );
   }
 
-  void setUpErrorState(BuildContext context, String error) {
+  void setUpErrorState(BuildContext context, ApiErrorModel apiErrorModel) {
     context.pop();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         icon: const Icon(Icons.error, color: Colors.red, size: 32),
-        content: Text(error, style: TextStyles.font15DarkBlueMedium),
+        content: Text(
+          apiErrorModel.getAllErrorMessages(),
+          style: TextStyles.font15DarkBlueMedium,
+        ),
         actions: [
           TextButton(
             onPressed: () {

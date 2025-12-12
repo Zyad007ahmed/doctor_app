@@ -18,5 +18,5 @@ class HomeState with _$HomeState {
   // doctors
   const factory HomeState.doctorsSuccess(List<Doctor?>? doctorsList) =
       DoctorsSuccess;
-  const factory HomeState.doctorsError(String message) = DoctorsError;
+  const factory HomeState.doctorsError() = DoctorsError;
 }
